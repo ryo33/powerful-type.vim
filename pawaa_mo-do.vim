@@ -4,7 +4,9 @@ augroup plugin-POWER-mode
     autocmd CursorHold,CursorHoldI * call s:restore_pos()
 augroup END
 
-set updatetime=100
+set updatetime=60
+
+let s:range = 10
 
 let s:seed = 0
 function! s:rand() abort
@@ -13,8 +15,10 @@ function! s:rand() abort
 endfunction
 
 function! s:random_direction() abort
-    let x = s:rand() % 10
-    let y = s:rand() % 10
+    let rad = s:rand() % 1000 / 1000.0 * 44 / 7
+    let len = s:rand() % s:range
+    let x = float2nr(round(len * cos(rad)))
+    let y = float2nr(round(len * sin(rad)))
     return [x, y]
 endfunction
 
@@ -30,11 +34,10 @@ function! s:restore_pos() abort
 endfunction
 
 function! s:shake() abort
-    if exists('s:winpos')
-        return
+    if !exists('s:winpos')
+        let s:winpos = [getwinposx(), getwinposy()]
     endif
 
-    let s:winpos = [getwinposx(), getwinposy()]
     let d = s:random_direction()
-    execute 'winpos' (getwinposx() + d[0]) (getwinposy() + d[1])
+    execute 'winpos' (s:winpos[0] + d[0]) (s:winpos[1] + d[1])
 endfunction
