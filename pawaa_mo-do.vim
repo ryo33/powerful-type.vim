@@ -1,5 +1,3 @@
-let s:shaking = 0
-
 augroup plugin-POWER-mode
     autocmd!
     autocmd TextChangedI * call s:shake()
