@@ -1,11 +1,11 @@
-augroup plugin-POWER-mode
+augroup powerful-type
     autocmd!
     autocmd TextChangedI * call s:shake()
     autocmd CursorHold,CursorHoldI * call s:restore_pos()
 augroup END
 
-command! ShakeOn call s:switch(1)
-command! ShakeOff call s:switch(0)
+command! PowerfulOn call s:switch(1)
+command! PowerfulOff call s:switch(0)
 
 set updatetime=60
 
