@@ -34,10 +34,6 @@ function! s:random_direction() abort
     return [x, y]
 endfunction
 
-function! s:Power()
-    echom 'power'
-endfunction
-
 function! s:restore_pos() abort
     if exists('s:winpos')
         execute 'winpos' s:winpos[0] s:winpos[1]
