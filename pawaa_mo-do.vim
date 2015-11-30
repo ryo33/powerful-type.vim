@@ -4,14 +4,22 @@ augroup plugin-POWER-mode
     autocmd CursorHold,CursorHoldI * call s:restore_pos()
 augroup END
 
+command! ShakeOn call s:switch(1)
+command! ShakeOff call s:switch(0)
+
 set updatetime=60
 
 let s:range = 10
+let s:state = 0
 
 let s:seed = 0
 function! s:rand() abort
   let s:seed = s:seed * 214013 + 2531011
   return (s:seed < 0 ? s:seed - 0x80000000 : s:seed) / 0x10000 % 0x8000
+endfunction
+
+function! s:switch(state)
+    let s:state = a:state
 endfunction
 
 function! s:random_direction() abort
@@ -34,6 +42,9 @@ function! s:restore_pos() abort
 endfunction
 
 function! s:shake() abort
+    if !exists('s:state') || !s:state
+        return
+    endif
     if !exists('s:winpos')
         let s:winpos = [getwinposx(), getwinposy()]
     endif
