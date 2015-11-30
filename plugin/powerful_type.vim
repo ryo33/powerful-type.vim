@@ -24,8 +24,8 @@ endfunction
 
 function! s:random_direction() abort
     let rad = s:rand() % 1000 / 1000.0 * 44 / 7
-    if exists('g:shake#amplitude')
-        let len = g:shake#amplitude
+    if exists('g:powerful_type#amplitude')
+        let len = g:powerful_type#amplitude
     else
         let len = s:amplitude
     endif
