@@ -9,7 +9,7 @@ command! ShakeOff call s:switch(0)
 
 set updatetime=60
 
-let s:range = 10
+let s:amplitude = 5
 let s:state = 0
 
 let s:seed = 0
@@ -24,7 +24,11 @@ endfunction
 
 function! s:random_direction() abort
     let rad = s:rand() % 1000 / 1000.0 * 44 / 7
-    let len = s:rand() % s:range
+    if exists('g:shake#amplitude')
+        let len = g:shake#amplitude
+    else
+        let len = s:amplitude
+    endif
     let x = float2nr(round(len * cos(rad)))
     let y = float2nr(round(len * sin(rad)))
     return [x, y]
